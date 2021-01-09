@@ -111,4 +111,4 @@ let run = () => {
   |> thenl(Js.Promise.resolve);
 };
 
-run();
+let _ =run();

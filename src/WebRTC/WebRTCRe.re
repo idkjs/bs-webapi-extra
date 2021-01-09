@@ -33,8 +33,9 @@ module RTCMessageEvent = {
     t => {
       let data = t |> getData;
       let isArrayBuffer: 'a => bool = [%raw
-        a => "return a instanceof ArrayBuffer"
+        {js|function() {a => "return a instanceof ArrayBuffer"}|js}
       ];
+
       if (Js.typeof(data) == "string") {
         Some(String(data));
       } else if (data |> isArrayBuffer) {
@@ -81,11 +82,10 @@ module RTCDataChannel = {
   [@bs.send] external sendString: (t, string) => unit = "send";
   [@bs.send]
   external sendArrayBuffer: (t, Js.Typed_array.array_buffer) => unit = "send";
-  [@bs.send] external close: t => unit = "";
+  [@bs.send] external close: t => unit;
   [@bs.obj]
   external makeOptions:
-    (~ordered: bool, ~maxPacketLifeTime: int=?, unit) => optionsT =
-    "";
+    (~ordered: bool, ~maxPacketLifeTime: int=?, unit) => optionsT;
 
   [@bs.set] external setBinaryType: (t, string) => unit = "binaryType";
   let setBinaryType = (t, binaryType) =>
@@ -105,8 +105,7 @@ module RTCOffer = {
   type optionsT;
   [@bs.obj]
   external makeOptions:
-    (~offerToReceiveAudio: bool, ~offerToReceiveVideo: bool) => optionsT =
-    "";
+    (~offerToReceiveAudio: bool, ~offerToReceiveVideo: bool) => optionsT;
 };
 
 module RTCSdpType = {
@@ -172,21 +171,19 @@ module RTCSessionDescription = {
   type t;
   [@bs.get] external getType: t => string = "type";
   let getType = t => RTCSdpType.decode(getType(t));
-  [@bs.get] external sdp: t => string = "";
+  [@bs.get] external sdp: t => string;
 };
 
 module RTCIceServer = {
   type t;
   [@bs.obj]
   external make:
-    (~urls: string, ~username: string=?, ~credential: string=?, unit) => t =
-    "";
+    (~urls: string, ~username: string=?, ~credential: string=?, unit) => t;
 };
 
 module RTCConfiguration = {
   type t;
-  [@bs.obj]
-  external make: (~iceServers: array(RTCIceServer.t)=?, unit) => t = "";
+  [@bs.obj] external make: (~iceServers: array(RTCIceServer.t)=?, unit) => t;
 };
 
 module RTCPeerConnection = {
@@ -229,13 +226,13 @@ module RTCPeerConnection = {
   external setLocalDescription:
     (t, RTCSessionDescription.t) => Js_promise.t(unit) /*string*/ =
     "setLocalDescription";
-  [@bs.get] external localDescription: t => RTCSessionDescription.t = "";
+  [@bs.get] external localDescription: t => RTCSessionDescription.t;
   [@bs.send]
   external setRemoteDescription:
     (t, RTCSessionDescription.t) => Js_promise.t(unit) /*string*/ =
     "setRemoteDescription";
-  [@bs.get] external remoteDescription: t => RTCSessionDescription.t = "";
-  [@bs.get] external iceConnectionState: t => string = "";
+  [@bs.get] external remoteDescription: t => RTCSessionDescription.t;
+  [@bs.get] external iceConnectionState: t => string;
   let iceConnectionState = t =>
     iceConnectionState(t) |> RTCIceConnectionState.decode;
   [@bs.send] external close: t => unit = "close";

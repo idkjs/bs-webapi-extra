@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "bsb -make-world",
-    "start": "bsb -make-world -w",
+    "start": "BSB_WATCH_CLEAR=true bsb -make-world -w",
     "clean": "bsb -clean-world",
     "pack": "webpack lib/js/example/example.js -o lib/app.js --mode development",
     "pack-start": "webpack -w lib/js/example/example.js -o lib/app.js --mode development"
@@ -27,10 +27,10 @@
     "indexeddb"
   ],
   "dependencies": {
-    "bs-webapi": "^0.12.2"
+    "bs-webapi": "^0.19.1"
   },
   "devDependencies": {
-    "bs-platform": "^5.0.0",
+    "bs-platform": "^8.4.2",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.1"
   },
