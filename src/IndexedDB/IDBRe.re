@@ -1,52 +1,52 @@
 module IDBObjectStore = {
   type t = IDBTypesRe.idbObjectStore;
   module Impl = (T: {type t;}) => {
-    [@bs.get] external autoIncrement: T.t => bool = "";
+    [@bs.get] external autoIncrement: T.t => bool = "autoIncrement";
     [@bs.get]
-    external indexNames: T.t => CommonDomInterfacesRe.domStringList = "";
-    [@bs.get] external keyPath: T.t => array(string) = "";
+    external indexNames: T.t => CommonDomInterfacesRe.domStringList = "indexNames";
+    [@bs.get] external keyPath: T.t => array(string) = "keyPath";
 
-    [@bs.get] external transaction: T.t => IDBTypesRe.idbTransaction = "";
+    [@bs.get] external transaction: T.t => IDBTypesRe.idbTransaction = "transaction";
 
     [@bs.send.pipe: T.t]
-    external add: 'a => IDBTypesRe.idbRequest(IDBTypesRe.idbKey) = "";
+    external add: 'a => IDBTypesRe.idbRequest(IDBTypesRe.idbKey) = "add";
     [@bs.send.pipe: T.t]
     external addWithKey:
       ('a, IDBTypesRe.idbKey) => IDBTypesRe.idbRequest(IDBTypesRe.idbKey) =
       "add";
-    [@bs.send.pipe: T.t] external clear: unit = "";
+    [@bs.send.pipe: T.t] external clear: unit = "clear";
     [@bs.send.pipe: T.t]
-    external count: unit => IDBTypesRe.idbRequest(int) = "";
+    external count: unit => IDBTypesRe.idbRequest(int) = "count";
     [@bs.send.pipe: T.t]
     external countWithKey: IDBTypesRe.idbKey => IDBTypesRe.idbRequest(int) =
       "count";
     [@bs.send.pipe: T.t]
-    external createIndex: (string, array(string)) => IDBTypesRe.idbIndex = "";
+    external createIndex: (string, array(string)) => IDBTypesRe.idbIndex = "createIndex";
     [@bs.send.pipe: T.t]
     external createIndexWithOptions:
       (string, array(string), Js.t({..})) => IDBTypesRe.idbIndex =
       "createIndex";
     [@bs.send.pipe: T.t]
-    external delete: IDBTypesRe.idbKey => IDBTypesRe.idbRequest(unit) = "";
-    [@bs.send.pipe: T.t] external deleteIndex: string => unit = "";
+    external delete: IDBTypesRe.idbKey => IDBTypesRe.idbRequest(unit) = "delete";
+    [@bs.send.pipe: T.t] external deleteIndex: string => unit = "deleteIndex";
     [@bs.send.pipe: T.t]
     external get: IDBTypesRe.idbKey => IDBTypesRe.idbRequest(option('a)) =
-      "";
+      "get";
     [@bs.send.pipe: T.t]
     external getAll:
       (~query: IDBTypesRe.idbKey=?, ~count: int=?) =>
       IDBTypesRe.idbRequest(array('a)) =
-      "";
+      "getAll";
     [@bs.send.pipe: T.t]
     external getAllKeys:
       (~query: IDBTypesRe.idbKey=?, ~count: int=?) =>
       IDBTypesRe.idbRequest(array(IDBTypesRe.idbKey)) =
-      "";
+      "getAllKeys";
     [@bs.send.pipe: T.t]
     external getKey:
       IDBTypesRe.idbKey => IDBTypesRe.idbRequest(option(IDBTypesRe.idbKey)) =
-      "";
-    [@bs.send.pipe: T.t] external index: string => IDBTypesRe.idbIndex = "";
+      "getKey";
+    [@bs.send.pipe: T.t] external index: string => IDBTypesRe.idbIndex = "index";
     [@bs.send.pipe: T.t]
     external openCursor:
       (
@@ -54,7 +54,7 @@ module IDBObjectStore = {
         ~direction: IDBTypesRe.idbCursorDirection=?
       ) =>
       IDBTypesRe.idbRequest(option(IDBTypesRe.idbCursorWithValue)) =
-      "";
+      "openCursor";
     [@bs.send.pipe: T.t]
     external openKeyCursor:
       (
@@ -62,9 +62,9 @@ module IDBObjectStore = {
         ~direction: IDBTypesRe.idbCursorDirection=?
       ) =>
       IDBTypesRe.idbRequest(option(IDBTypesRe.idbCursor)) =
-      "";
+      "openKeyCursor";
     [@bs.send.pipe: T.t]
-    external put: 'a => IDBTypesRe.idbRequest(IDBTypesRe.idbKey) = "";
+    external put: 'a => IDBTypesRe.idbRequest(IDBTypesRe.idbKey) = "put";
     [@bs.send.pipe: T.t]
     external putWithKey:
       ('a, IDBTypesRe.idbKey) => IDBTypesRe.idbRequest(IDBTypesRe.idbKey) =
@@ -83,10 +83,10 @@ module IDBObjectStoreParameters = {
 
 module IDBDatabase = {
   module Impl = (T: {type t;}) => {
-    [@bs.get] external name: T.t => string = "";
+    [@bs.get] external name: T.t => string = "name";
     [@bs.get]
     external objectStoreNames: T.t => CommonDomInterfacesTypesRe.domStringList =
-      "";
+      "objectStoreNames";
 
     [@bs.set]
     external setOnAbort: (T.t, Dom.event => unit) => unit = "onabort";
@@ -98,20 +98,20 @@ module IDBDatabase = {
     external setOnVersionChange: (T.t, Dom.event => unit) => unit =
       "onversionchange";
 
-    [@bs.get] external version: T.t => int = "";
+    [@bs.get] external version: T.t => int = "version";
 
-    [@bs.send.pipe: T.t] external close: unit = "";
+    [@bs.send.pipe: T.t] external close: unit = "close";
     [@bs.send.pipe: T.t]
-    external createObjectStore: string => IDBTypesRe.idbObjectStore = "";
+    external createObjectStore: string => IDBTypesRe.idbObjectStore = "createObjectStore";
     [@bs.send.pipe: T.t]
     external createObjectStoreWithOptions:
       (string, IDBTypesRe.idbObjectStoreParameters) =>
       IDBTypesRe.idbObjectStore =
       "createObjectStore";
-    [@bs.send.pipe: T.t] external deleteObjectStore: string => unit = "";
+    [@bs.send.pipe: T.t] external deleteObjectStore: string => unit = "deleteObjectStore";
     [@bs.send.pipe: T.t]
     external transaction: (array(string), string) => IDBTypesRe.idbTransaction =
-      "";
+      "transaction";
     let transaction = (storeNames, mode) =>
       transaction(storeNames, mode |> IDBTypesRe.encodeIdbTransactionMode);
   };
@@ -125,12 +125,12 @@ module IDBDatabase = {
 
 module IDBTransaction = {
   module Impl = (T: {type t;}) => {
-    [@bs.get] external db: T.t => IDBTypesRe.idbDatabase = "";
-    [@bs.get] external error: T.t => Js.Exn.t = "";
-    [@bs.get] external mode: T.t => IDBTypesRe.idbTransactionMode = "";
+    [@bs.get] external db: T.t => IDBTypesRe.idbDatabase = "db";
+    [@bs.get] external error: T.t => Js.Exn.t = "error";
+    [@bs.get] external mode: T.t => IDBTypesRe.idbTransactionMode = "mode";
     [@bs.get]
     external objectStoreNames: T.t => CommonDomInterfacesTypesRe.domStringList =
-      "";
+      "objectStoreNames";
 
     [@bs.set]
     external setOnAbort: (T.t, Dom.event => unit) => unit = "onabort";
@@ -139,9 +139,9 @@ module IDBTransaction = {
     [@bs.set]
     external setOnError: (T.t, Dom.event => unit) => unit = "onerror";
 
-    [@bs.send.pipe: T.t] external abort: unit = "";
+    [@bs.send.pipe: T.t] external abort: unit = "abort";
     [@bs.send.pipe: T.t]
-    external objectStore: string => IDBTypesRe.idbObjectStore = "";
+    external objectStore: string => IDBTypesRe.idbObjectStore = "objectStore";
   };
 
   /* TODO: Extend EventTarget */
@@ -154,14 +154,14 @@ module IDBTransaction = {
 
 module IDBRequest = {
   module Impl = (T: {type t('r);}) => {
-    [@bs.get] external error: T.t('r) => option(Js.Exn.t) = "";
+    [@bs.get] external error: T.t('r) => option(Js.Exn.t) = "error";
 
     [@bs.set]
     external setOnError: (T.t('r), Dom.event => unit) => unit = "onerror";
     [@bs.set]
     external setOnSuccess: (T.t('r), Dom.event => unit) => unit = "onsuccess";
 
-    [@bs.get] external result: T.t('r) => 'r = "";
+    [@bs.get] external result: T.t('r) => 'r = "result";
   };
 
   type t('result) = IDBTypesRe.idbRequest('result);
@@ -194,11 +194,11 @@ module IDBOpenDBRequest = {
 module IDBFactory = {
   type t = IDBTypesRe.idbFactory;
   [@bs.send.pipe: t]
-  external deleteDatabase: string => IDBTypesRe.idbOpenDBRequest = "";
+  external deleteDatabase: string => IDBTypesRe.idbOpenDBRequest = "deleteDatabase";
   [@bs.send.pipe: t]
   external open_: (string, int) => IDBTypesRe.idbOpenDBRequest = "open";
 };
 
-[@bs.val] [@bs.scope "window"] external indexedDB: IDBTypesRe.idbFactory = "";
+[@bs.val] [@bs.scope "window"] external indexedDB: IDBTypesRe.idbFactory = "indexedDB";
 
 include IDBTypesRe;

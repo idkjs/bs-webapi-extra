@@ -1,9 +1,9 @@
 module MessageEvent = {
   module Impl = (T: {type t;}) => {
     /* TODO: Support other data types */
-    [@bs.get] external data: T.t => string = "";
-    [@bs.get] external origin: T.t => string = "";
-    [@bs.get] external lastEventId: T.t => string = "";
+    [@bs.get] external data: T.t => string = "data";
+    [@bs.get] external origin: T.t => string = "origin";
+    [@bs.get] external lastEventId: T.t => string = "lastEventId";
     /* [@bs.get] external source: T.t => Dom.messagePort = ""; */
     /* [@bs.get] external ports: T.t => array(Dom.messagePort) = ""; */
   };

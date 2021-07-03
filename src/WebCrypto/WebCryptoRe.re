@@ -5,10 +5,10 @@
 module CryptoKeyPair = {
   type t = WebCryptoTypesRe.cryptoKeyPair;
   [@bs.new] external create: unit => t = "CryptoKeyPair";
-  [@bs.get] external publicKey: t => WebCryptoTypesRe.cryptoKey = "";
+  [@bs.get] external publicKey: t => WebCryptoTypesRe.cryptoKey = "publicKey";
   [@bs.set]
   external setPublicKey: (t, WebCryptoTypesRe.cryptoKey) => unit = "publicKey";
-  [@bs.get] external privateKey: t => WebCryptoTypesRe.cryptoKey = "";
+  [@bs.get] external privateKey: t => WebCryptoTypesRe.cryptoKey = "privateKey";
   [@bs.set]
   external setPrivateKey: (t, WebCryptoTypesRe.cryptoKey) => unit =
     "privateKey";
@@ -16,7 +16,7 @@ module CryptoKeyPair = {
 
 module Algorithm = {
   module Impl = (T: {type t;}) => {
-    [@bs.get] external name: T.t => string = "";
+    [@bs.get] external name: T.t => string = "name";
     [@bs.set] external setName: (T.t, string) => unit = "name";
   };
   type t = WebCryptoTypesRe.algorithm;
@@ -27,9 +27,9 @@ module Algorithm = {
 
 module RsaKeyGenParams = {
   module Impl = (T: {type t;}) => {
-    [@bs.get] external modulusLength: T.t => int = "";
+    [@bs.get] external modulusLength: T.t => int = "modulusLength";
     [@bs.set] external setModulusLength: (T.t, int) => unit = "modulusLength";
-    [@bs.get] external publicExponent: T.t => Js.Typed_array.Uint8Array.t = "";
+    [@bs.get] external publicExponent: T.t => Js.Typed_array.Uint8Array.t = "publicExponent";
     [@bs.set]
     external setPublicExponent: (T.t, Js.Typed_array.Uint8Array.t) => unit =
       "publicExponent";
@@ -75,7 +75,7 @@ module HashAlgorithmIdentifier = {
 module RsaHashedImportParams = {
   module Impl = (T: {type t;}) => {
     [@bs.get]
-    external hash: T.t => WebCryptoTypesRe.hashAlgorithmIdentifier = "";
+    external hash: T.t => WebCryptoTypesRe.hashAlgorithmIdentifier = "hash";
     [@bs.set]
     external setHash: (T.t, WebCryptoTypesRe.hashAlgorithmIdentifier) => unit =
       "hash";
@@ -168,7 +168,7 @@ module JsonWebKey = {
 module RsaHashedKeyGenParams = {
   module Impl = (T: {type t;}) => {
     [@bs.get]
-    external hash: T.t => WebCryptoTypesRe.hashAlgorithmIdentifier = "";
+    external hash: T.t => WebCryptoTypesRe.hashAlgorithmIdentifier = "hash";
     [@bs.set]
     external setHash: (T.t, WebCryptoTypesRe.hashAlgorithmIdentifier) => unit =
       "hash";
@@ -218,13 +218,13 @@ module SubtleCrypto = {
       Js.Typed_array.array_buffer
     ) =>
     Js.Promise.t(Js.Typed_array.array_buffer) =
-    "";
+    "encrypt";
 
   [@bs.send]
   external generateKey:
     (t, WebCryptoTypesRe.algorithmIdentifier, bool, array(string)) =>
     Js.Promise.t(WebCryptoTypesRe.cryptoKey) =
-    "";
+    "generateKey";
   [@bs.send]
   external generateKeyPair:
     (t, WebCryptoTypesRe.rsaHashedKeyGenParams, bool, array(string)) =>
@@ -237,7 +237,7 @@ module SubtleCrypto = {
   external sign:
     (t, string, WebCryptoTypesRe.cryptoKey, Js.Typed_array.ArrayBuffer.t) =>
     Js.Promise.t(Js.Typed_array.array_buffer) =
-    "";
+    "sign";
 
   [@bs.send]
   external verify:
@@ -251,19 +251,19 @@ module SubtleCrypto = {
       Js.Typed_array.array_buffer
     ) =>
     Js.Promise.t(bool) =
-    "";
+    "verify";
 
   [@bs.send]
   external digest:
     (t, string, Js.Typed_array.array_buffer) =>
     Js.Promise.t(Js.Typed_array.array_buffer) =
-    "";
+    "digest";
 
   [@bs.send]
   external exportKey:
     (t, [@bs.as "jwk"] _, WebCryptoTypesRe.cryptoKey) =>
     Js.Promise.t(WebCryptoTypesRe.jsonWebKey) =
-    "";
+    "exportKey";
 
   [@bs.send]
   external importKey:
@@ -276,7 +276,7 @@ module SubtleCrypto = {
       array(string)
     ) =>
     Js.Promise.t(WebCryptoTypesRe.cryptoKey) =
-    "";
+    "importKey";
   let importKey = (t, jwk, params, extractable, usages) =>
     importKey(t, jwk, params, extractable, usages |> keyUsagesToJs);
 };

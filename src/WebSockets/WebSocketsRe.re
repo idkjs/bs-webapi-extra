@@ -1,8 +1,8 @@
 module CloseEvent = {
   module Impl = (T: {type t;}) => {
-    [@bs.get] external wasClean: T.t => bool = "";
-    [@bs.get] external code: T.t => int = "";
-    [@bs.get] external reason: T.t => string = "";
+    [@bs.get] external wasClean: T.t => bool = "wasClean";
+    [@bs.get] external code: T.t => int = "code";
+    [@bs.get] external reason: T.t => string = "reason";
   };
 
   type t;
@@ -33,7 +33,7 @@ module WebSocket = {
 
   [@bs.new] external create: string => t = "WebSocket";
 
-  [@bs.get] external readyState: t => int = "";
+  [@bs.get] external readyState: t => int = "readyState";
   let readyState = t =>
     switch (readyStateFromJs(t->readyState)) {
     | Some(rs) => rs
@@ -43,7 +43,7 @@ module WebSocket = {
   [@bs.send] external sendString: (t, string) => unit = "send";
   [@bs.send]
   external sendArrayBuffer: (t, Js.Typed_array.array_buffer) => unit = "send";
-  [@bs.send] external close: t => unit = "";
+  [@bs.send] external close: t => unit = "close";
 
   [@bs.set]
   external setOnMessage: (t, WebMessagingRe.MessageEvent.t => unit) => unit =

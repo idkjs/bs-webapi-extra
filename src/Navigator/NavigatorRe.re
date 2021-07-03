@@ -1,10 +1,10 @@
 module Navigator = {
   type t = NavigatorTypesRe.navigator;
 
-  [@bs.get] external onLine: t => bool = "";
+  [@bs.get] external onLine: t => bool = "onLine";
 };
 
-[@bs.get] external navigator: Dom.window => NavigatorTypesRe.navigator = "";
+[@bs.get] external navigator: Dom.window => NavigatorTypesRe.navigator = "navigator";
 
 /* TODO: Move to window */
 
